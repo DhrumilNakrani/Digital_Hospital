@@ -1,34 +1,113 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  const [enteredFirstName, setEnteredFirstName] = useState("");
+  const [enteredFirstNameTouched, setEnteredFirstNameTouched] = useState(false);
+
+  const [enteredLastName, setEnteredLastName] = useState("");
+  const [enteredLastNameTouched, setEnteredLastNameTouched] = useState(false);
+
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [enteredPasswordTouched, setEnteredPasswordTouched] = useState(false);
+
+  const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
+  const [enteredConfirmPasswordTouched, setEnteredConfirmPasswordTouched] =
+    useState(false);
+
+  const [enteredMobileNumber, setEnteredMobileNumber] = useState("");
+  const [enteredMobileNumberTouched, setEnteredMobileNumberTouched] =
+    useState(false);
+
   const history = useHistory();
 
-  const firstNameInputRef = useRef();
+  const enteredFirstNameIsValid = enteredFirstName.trim() !== "";
+  const firstNameInputIsInValid =!enteredFirstNameIsValid && enteredFirstNameTouched;
 
-  const lastNameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
-  const mobileNumberInputRef = useRef();
+  const enteredLastNameIsValid = enteredLastName.trim() !== "";
+  const lastNameInputIsInValid =!enteredLastNameIsValid && enteredLastNameTouched;
+
+  const enteredEmailIsValid = enteredEmail.trim() !== "";
+  const emailInputIsInValid = !enteredEmailIsValid && enteredEmailTouched;
+
+  const enteredPasswordIsValid = enteredPassword.trim() !== "";
+  const passwordInputIsInValid =!enteredPasswordIsValid && enteredPasswordTouched;
+
+  const enteredConfirmPasswordIsValid = enteredConfirmPassword.trim() !== "";
+  const ConfirmPasswordInputIsInValid =!enteredConfirmPasswordIsValid && enteredConfirmPasswordTouched;
+
+  const enteredMobileNumberIsValid = enteredMobileNumber.trim() !== "";
+  const mobileNumberInputIsInValid =!enteredMobileNumberIsValid && enteredMobileNumberTouched;
+
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  // const submit = (event) => {
-  //   event.preventDefault();
-  // };
-  const authSubmitHandler = async (event) => {
+  const firstNameInputChangeHandler = (event) => {
+    setEnteredFirstName(event.target.value);
+  };
+
+  const firstNameInputBlurHandler = (event) => {
+    setEnteredFirstNameTouched(true);
+  };
+
+  const lastNameInputChangeHandler = (event) => {
+    setEnteredLastName(event.target.value);
+  };
+
+  const lastNameInputBlurHandler = (event) => {
+    setEnteredLastNameTouched(true);
+  };
+  const emailInputChangeHandler = (event) => {
+    setEnteredEmail(event.target.value);
+  };
+
+  const emailInputBlurHandler = (event) => {
+    setEnteredEmailTouched(true);
+  };
+
+  const passwordInputChangeHandler = (event) => {
+    setEnteredPassword(event.target.value);
+  };
+
+  const passwordInputBlurHandler = (event) => {
+    setEnteredPasswordTouched(true);
+  };
+
+  const confirmPasswordInputChangeHandler = (event) => {
+    setEnteredConfirmPassword(event.target.value);
+  };
+
+  const confirmPasswordInputBlurHandler = (event) => {
+    setEnteredConfirmPasswordTouched(true);
+  };
+
+  const mobileNumberInputChangeHandler = (event) => {
+    setEnteredMobileNumber(event.target.value);
+  };
+
+  const mobileNumberInputBlurHandler = (event) => {
+    setEnteredMobileNumberTouched(true);
+  };
+
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (isLogin) {
-      const enteredEmail = emailInputRef.current.value;
-      const enteredPassword = passwordInputRef.current.value;
+    setEnteredFirstNameTouched(true);
+    setEnteredLastNameTouched(true);
+    setEnteredEmailTouched(true);
+    setEnteredPasswordTouched(true);
+    setEnteredMobileNumberTouched(true);
+    setEnteredConfirmPasswordTouched(true);
 
+    if (isLogin) {
       try {
         const response = await fetch("http://localhost:5000/login", {
           method: "POST",
@@ -49,20 +128,14 @@ const AuthForm = () => {
         ) {
           history.replace("/");
         } else {
+          setEnteredEmail("");
+          setEnteredPassword("");
           console.log(responseData.message);
-          history.replace("/auth");
         }
       } catch (err) {
         console.log(err);
       }
     } else {
-      const enteredEmail = emailInputRef.current.value;
-      const enteredPassword = passwordInputRef.current.value;
-      const enteredFirstName = firstNameInputRef.current.value;
-      const enteredLastName = lastNameInputRef.current.value;
-      const enteredMobileNumber = mobileNumberInputRef.current.value;
-      const enteredConfirmPassword = confirmPasswordInputRef.current.value;
-
       try {
         const response = await fetch("http://localhost:5000/signup", {
           method: "POST",
@@ -88,19 +161,32 @@ const AuthForm = () => {
           history.replace("/");
         } else {
           console.log(responseData.message);
-          // history.replace("/auth");
         }
       } catch (err) {
         console.log(err);
       }
     }
+
+    setEnteredFirstName("");
+    setEnteredLastName("");
+    setEnteredEmail("");
+    setEnteredPassword("");
+    setEnteredMobileNumber("");
+    setEnteredConfirmPassword("");
+
+    setEnteredFirstNameTouched(false);
+    setEnteredLastNameTouched(false);
+    setEnteredEmailTouched(false);
+    setEnteredPasswordTouched(false);
+    setEnteredMobileNumberTouched(false);
+    setEnteredConfirmPasswordTouched(false);
   };
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
 
-      <form onSubmit={authSubmitHandler}>
+      <form onSubmit={formSubmitHandler}>
         {!isLogin && (
           <div>
             <div className={classes.control}>
@@ -110,8 +196,11 @@ const AuthForm = () => {
                 id="fname"
                 placeholder="First Name"
                 required
-                ref={firstNameInputRef}
+                onChange={firstNameInputChangeHandler}
+                onBlur={firstNameInputBlurHandler}
+                value={enteredFirstName}
               />
+              {firstNameInputIsInValid && <h6>First Name must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -121,8 +210,11 @@ const AuthForm = () => {
                 id="lname"
                 placeholder="Last Name"
                 required
-                ref={lastNameInputRef}
+                onChange={lastNameInputChangeHandler}
+                onBlur={lastNameInputBlurHandler}
+                value={enteredLastName}
               />
+              {lastNameInputIsInValid && <h6>Last Name must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -132,8 +224,11 @@ const AuthForm = () => {
                 placeholder="abc@gmail.com"
                 id="email"
                 required
-                ref={emailInputRef}
+                onChange={emailInputChangeHandler}
+                onBlur={emailInputBlurHandler}
+                value={enteredEmail}
               />
+              {emailInputIsInValid && <h6>Email must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -144,8 +239,11 @@ const AuthForm = () => {
                 placeholder="10 digit mobile number"
                 pattern="[0-9]{10}"
                 required
-                ref={mobileNumberInputRef}
+                onChange={mobileNumberInputChangeHandler}
+                onBlur={mobileNumberInputBlurHandler}
+                value={enteredMobileNumber}
               />
+              {mobileNumberInputIsInValid && <h6>Mobile Number must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -156,9 +254,11 @@ const AuthForm = () => {
                 placeholder="Password"
                 required
                 minLength="6"
-                autoComplete="on"
-                ref={passwordInputRef}
+                onChange={passwordInputChangeHandler}
+                onBlur={passwordInputBlurHandler}
+                value={enteredPassword}
               />
+              {passwordInputIsInValid && <h6>Password must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -169,10 +269,13 @@ const AuthForm = () => {
                 placeholder="Confirm Password"
                 required
                 minLength="6"
-                autoComplete="on"
-                ref={confirmPasswordInputRef}
+                onChange={confirmPasswordInputChangeHandler}
+                onBlur={confirmPasswordInputBlurHandler}
+                value={enteredConfirmPassword}
               />
+              {ConfirmPasswordInputIsInValid && <h6>Confirm Password must not be empty</h6>}
             </div>
+
           </div>
         )}
 
@@ -180,7 +283,13 @@ const AuthForm = () => {
           <div>
             <div className={classes.control}>
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" required ref={emailInputRef} />
+              <input
+                type="email"
+                id="email"
+                required
+                onChange={emailInputChangeHandler}
+                value={enteredEmail}
+              />
             </div>
             <div className={classes.control}>
               <label htmlFor="password">Password</label>
@@ -188,8 +297,8 @@ const AuthForm = () => {
                 type="password"
                 id="password"
                 required
-                autoComplete="on"
-                ref={passwordInputRef}
+                onChange={passwordInputChangeHandler}
+                value={enteredPassword}
               />
             </div>
           </div>

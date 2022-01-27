@@ -1,5 +1,6 @@
 //const schema = require('./schema');
 const bcrypt = require('bcryptjs');
+const { response } = require('express');
 const User = require('../models/user');
 
 
@@ -18,7 +19,7 @@ exports.postLogin = (req, res, next) => {
             res.json(req.body);
           }
           else {
-            console.log("Invalid Credentials");
+            res.json({message:'Invalid Credentials'});
           }
         }).catch((err) => {
           console.log(err);
@@ -30,14 +31,7 @@ exports.postSignup = (req, res, next) => {
 
 
   const { firstName, lastName, email, mobileNumber, password, confirmPassword } = req.body;
-  // const user = new User({
-  //     firstname: firstname,
-  //     lastname: lastname,
-  //     email: email,
-  //     mobilenumber: mobilenumber,
-  //     password: password,
-  //     confirmpassword: confirmpassword
-  // });
+  
   User.findOne({ email: email }).then(userDoc => {
     if (userDoc) {
       return res.json({ message: false });
