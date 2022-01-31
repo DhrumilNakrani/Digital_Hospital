@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
 
-const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const doctorRoutes=require('./routes/doctor');
+const staffRoutes=require('./routes/staff');
 // const erroeRoutes = require('./')
 
 app.use(express.json());
@@ -18,8 +20,9 @@ app.use((req, res, next) => {
   
     next();
   });
-app.use(authRoutes);
-
+app.use(userRoutes);
+app.use('/doctor',doctorRoutes);
+app.use('/staff',staffRoutes);
 app.get('/',(req,res,next) => {
     res.send("It's Working");
 })

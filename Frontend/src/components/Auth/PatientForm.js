@@ -2,14 +2,17 @@ import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AuthForm.module.css";
+import classes from "./AdminForm.module.css";
 
-const AuthForm = () => {
+const PatientForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInValidCredentials, setIsInValidCredentials] = useState(false);
+  const [isExsistingUser, setIsExsistingUser] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredFirstNameTouched, setEnteredFirstNameTouched] = useState(false);
@@ -70,18 +73,13 @@ const AuthForm = () => {
   const mobileNumberInputIsInValid =
     !enteredMobileNumberIsValid && enteredMobileNumberTouched;
 
-  // let formIsValid = false;
-
-  // if (enteredFirstNameIsValid) {
-  //   formIsValid = true;
-  // }
-
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
   const firstNameInputChangeHandler = (event) => {
     setEnteredFirstName(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const firstNameInputBlurHandler = (event) => {
@@ -90,6 +88,7 @@ const AuthForm = () => {
 
   const lastNameInputChangeHandler = (event) => {
     setEnteredLastName(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const lastNameInputBlurHandler = (event) => {
@@ -97,6 +96,7 @@ const AuthForm = () => {
   };
   const emailInputChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const emailInputBlurHandler = (event) => {
@@ -105,6 +105,7 @@ const AuthForm = () => {
 
   const emailInputChangeHandlerLogin = (event) => {
     setEnteredEmailLogin(event.target.value);
+    setIsInValidCredentials(false);
   };
 
   const emailInputBlurHandlerLogin = () => {
@@ -113,6 +114,7 @@ const AuthForm = () => {
 
   const passwordInputChangeHandlerLogin = (event) => {
     setEnteredPasswordLogin(event.target.value);
+    setIsInValidCredentials(false);
   };
 
   const passwordInputBlurHandlerLogin = () => {
@@ -121,6 +123,7 @@ const AuthForm = () => {
 
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const passwordInputBlurHandler = (event) => {
@@ -129,6 +132,7 @@ const AuthForm = () => {
 
   const confirmPasswordInputChangeHandler = (event) => {
     setEnteredConfirmPassword(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const confirmPasswordInputBlurHandler = (event) => {
@@ -137,17 +141,33 @@ const AuthForm = () => {
 
   const mobileNumberInputChangeHandler = (event) => {
     setEnteredMobileNumber(event.target.value);
+    setIsExsistingUser(false);
   };
 
   const mobileNumberInputBlurHandler = (event) => {
     setEnteredMobileNumberTouched(true);
   };
 
+  let formIsValid = false;
+  if (enteredEmailIsValidLogin && enteredPasswordIsValidLogin) {
+    formIsValid = true;
+  }
+  if (
+    enteredEmailIsValid &&
+    enteredFirstNameIsValid &&
+    enteredLastNameIsValid &&
+    enteredPasswordIsValid &&
+    enteredConfirmPasswordIsValid &&
+    enteredMobileNumberIsValid
+  ) {
+    formIsValid = true;
+  }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
     if (isLogin) {
       setIsLoading(true);
+
       try {
         const response = await fetch("http://localhost:5000/login", {
           method: "POST",
@@ -168,6 +188,7 @@ const AuthForm = () => {
           history.replace("/");
           console.log(responseData.message);
         } else {
+          setIsInValidCredentials(true);
           setEnteredEmailLogin("");
           setEnteredPasswordLogin("");
 
@@ -207,7 +228,10 @@ const AuthForm = () => {
           authCtx.login(responseData.token);
           history.replace("/");
           console.log(responseData.message);
+        } else if (enteredPassword !== enteredConfirmPassword) {
+          setIsPasswordValid(true);
         } else {
+          setIsExsistingUser(true);
           setEnteredEmail("");
           setEnteredFirstName("");
           setEnteredLastName("");
@@ -231,7 +255,7 @@ const AuthForm = () => {
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1>{isLogin ? "Patient Login" : "Sign Up"}</h1>
 
       <form onSubmit={formSubmitHandler}>
         {!isLogin && (
@@ -247,7 +271,7 @@ const AuthForm = () => {
                 onBlur={firstNameInputBlurHandler}
                 value={enteredFirstName}
               />
-              {firstNameInputIsInValid && <h6>First Name must not be empty</h6>}
+              {firstNameInputIsInValid && <h4>First Name must not be empty</h4>}
             </div>
 
             <div className={classes.control}>
@@ -261,7 +285,7 @@ const AuthForm = () => {
                 onBlur={lastNameInputBlurHandler}
                 value={enteredLastName}
               />
-              {lastNameInputIsInValid && <h6>Last Name must not be empty</h6>}
+              {lastNameInputIsInValid && <h4>Last Name must not be empty</h4>}
             </div>
 
             <div className={classes.control}>
@@ -275,7 +299,7 @@ const AuthForm = () => {
                 onBlur={emailInputBlurHandler}
                 value={enteredEmail}
               />
-              {emailInputIsInValid && <h6>Email must not be empty</h6>}
+              {emailInputIsInValid && <h4>Email must not be empty</h4>}
             </div>
 
             <div className={classes.control}>
@@ -291,7 +315,7 @@ const AuthForm = () => {
                 value={enteredMobileNumber}
               />
               {mobileNumberInputIsInValid && (
-                <h6>Mobile Number must not be empty</h6>
+                <h4>Mobile Number must not be empty</h4>
               )}
             </div>
 
@@ -307,7 +331,7 @@ const AuthForm = () => {
                 onBlur={passwordInputBlurHandler}
                 value={enteredPassword}
               />
-              {passwordInputIsInValid && <h6>Password must not be empty</h6>}
+              {passwordInputIsInValid && <h4>Password must not be empty</h4>}
             </div>
 
             <div className={classes.control}>
@@ -323,7 +347,7 @@ const AuthForm = () => {
                 value={enteredConfirmPassword}
               />
               {ConfirmPasswordInputIsInValid && (
-                <h6>Confirm Password must not be empty</h6>
+                <h4>Confirm Password must not be empty</h4>
               )}
             </div>
           </div>
@@ -342,7 +366,7 @@ const AuthForm = () => {
                 onBlur={emailInputBlurHandlerLogin}
                 value={enteredEmailLogin}
               />
-              {emailInputIsInvalidLogin && <h6>Email must not be empty</h6>}
+              {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
             </div>
             <div className={classes.control}>
               <label htmlFor="password">Password</label>
@@ -356,7 +380,7 @@ const AuthForm = () => {
                 value={enteredPasswordLogin}
               />
               {passwordInputIsInvalidLogin && (
-                <h6>Password must not be empty</h6>
+                <h4>Password must not be empty</h4>
               )}
             </div>
           </div>
@@ -364,10 +388,21 @@ const AuthForm = () => {
 
         <div className={classes.actions}>
           {!isLoading && (
-            <button>{isLogin ? "Login" : "Create Account"}</button>
+            <button disabled={!formIsValid}>
+              {isLogin ? "Login" : "Create Account"}
+            </button>
           )}
           {isLoading && (
             <RingLoader color="white" height={80} width={80}></RingLoader>
+          )}
+          {isLogin && isInValidCredentials && (
+            <h4>Invalid credentials, could not log you in.</h4>
+          )}
+          {!isLogin && isExsistingUser && (
+            <h4>User exists already, please login instead.</h4>
+          )}
+          {!isLogin && isPasswordValid && (
+            <h4>Password and Confirm Password must be same.</h4>
           )}
 
           <button
@@ -383,4 +418,4 @@ const AuthForm = () => {
   );
 };
 
-export default AuthForm;
+export default PatientForm;
