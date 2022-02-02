@@ -7,6 +7,7 @@ const staffController = require("../controllers/staff-controllers");
 
 router.post("/login", staffController.postLogin);
 
+router.delete("/delete",staffController.postDelete);
 router.post(
   "/signup",
 //   [check("password").isLength({ min: 5 })],

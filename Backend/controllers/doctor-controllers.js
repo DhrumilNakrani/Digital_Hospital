@@ -101,3 +101,23 @@ exports.postSingup = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.postDelete = (req, res, next) => {
+  const { id } = req.body;
+
+  Doctor.findByIdAndDelete({ _id : id }).then((DoctorDoc) => {
+    if (DoctorDoc) {
+      return res.status(200).json({
+        message: "Doctor deleted",
+        status: "200",
+      });
+    } else {
+      return res.status(404).json({
+        message: "Doctor does not exist",
+        status: "404",
+      });
+    }
+  }).catch((err) => {
+    console.log(err);
+  });
+};

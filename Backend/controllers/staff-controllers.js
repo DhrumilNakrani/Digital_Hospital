@@ -99,3 +99,21 @@ exports.postSingup = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.postDelete = (req, res, next) => {
+  const { id } = req.body;
+
+  Staff.findByIdAndDelete({ _id : id }).then((staffDoc) => {
+    if (staffDoc) {
+      return res.status(200).json({
+        message: "Staff deleted",
+        status: "200",
+      });
+    } else {
+      return res.status(404).json({
+        message: "Staff does not exist",
+        status: "404",
+      });
+    }
+  });
+};

@@ -246,7 +246,7 @@ const AdminManageStaffForm = () => {
                 onBlur={firstNameInputBlurHandler}
                 value={enteredFirstName}
               />
-              {firstNameInputIsInValid && <h4>First Name must not be empty</h4>}
+              {firstNameInputIsInValid && <h6>First Name must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -260,7 +260,7 @@ const AdminManageStaffForm = () => {
                 onBlur={lastNameInputBlurHandler}
                 value={enteredLastName}
               />
-              {lastNameInputIsInValid && <h4>Last Name must not be empty</h4>}
+              {lastNameInputIsInValid && <h6>Last Name must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -274,7 +274,7 @@ const AdminManageStaffForm = () => {
                 onBlur={emailInputBlurHandler}
                 value={enteredEmail}
               />
-              {emailInputIsInValid && <h4>Email must not be empty</h4>}
+              {emailInputIsInValid && <h6>Email must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -290,7 +290,7 @@ const AdminManageStaffForm = () => {
                 value={enteredMobileNumber}
               />
               {mobileNumberInputIsInValid && (
-                <h4>Mobile Number must not be empty</h4>
+                <h6>Mobile Number must not be empty</h6>
               )}
             </div>
 
@@ -305,7 +305,7 @@ const AdminManageStaffForm = () => {
                 onBlur={addressInputBlurHandler}
                 value={enteredAddress}
               />
-              {addressInputIsInvalid && <h4>Address must not be empty</h4>}
+              {addressInputIsInvalid && <h6>Address must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -320,7 +320,7 @@ const AdminManageStaffForm = () => {
                 onBlur={passwordInputBlurHandler}
                 value={enteredPassword}
               />
-              {passwordInputIsInValid && <h4>Password must not be empty</h4>}
+              {passwordInputIsInValid && <h6>Password must not be empty</h6>}
             </div>
 
             <div className={classes.control}>
@@ -336,7 +336,7 @@ const AdminManageStaffForm = () => {
                 value={enteredConfirmPassword}
               />
               {ConfirmPasswordInputIsInValid && (
-                <h4>Confirm Password must not be empty</h4>
+                <h6>Confirm Password must not be empty</h6>
               )}
             </div>
           </div>
@@ -350,13 +350,13 @@ const AdminManageStaffForm = () => {
             <RingLoader color="white" height={80} width={80}></RingLoader>
           )}
           {isLogin && isInValidCredentials && (
-            <h4>Invalid credentials, could not log you in.</h4>
+            <h6>Invalid credentials, could not log you in.</h6>
           )}
           {!isLogin && isExsistingUser && (
-            <h4>User exists already, please login instead.</h4>
+            <h6>User exists already, please login instead.</h6>
           )}
           {!isLogin && isPasswordValid && (
-            <h4>Password and Confirm Password must be same.</h4>
+            <h6>Password and Confirm Password must be same.</h6>
           )}
         </div>
       </form>

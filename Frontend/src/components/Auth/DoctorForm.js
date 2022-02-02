@@ -162,7 +162,7 @@ const DoctorForm = () => {
                 onBlur={emailInputBlurHandlerLogin}
                 value={enteredEmailLogin}
               />
-              {emailInputIsInvalidLogin && <h4>Email must not be empty</h4>}
+              {emailInputIsInvalidLogin && <h6>Email must not be empty</h6>}
             </div>
             <div className={classes.control}>
               <label htmlFor="password">Password</label>
@@ -176,7 +176,7 @@ const DoctorForm = () => {
                 value={enteredPasswordLogin}
               />
               {passwordInputIsInvalidLogin && (
-                <h4>Password must not be empty</h4>
+                <h6>Password must not be empty</h6>
               )}
             </div>
           </div>
@@ -188,7 +188,7 @@ const DoctorForm = () => {
             <RingLoader color="white" height={80} width={80}></RingLoader>
           )}
           {isLogin && isInValidCredentials && (
-            <h4>Invalid credentials, could not log you in.</h4>
+            <h6>Invalid credentials, could not log you in.</h6>
           )}
         </div>
       </form>
