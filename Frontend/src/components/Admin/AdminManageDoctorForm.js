@@ -242,7 +242,7 @@ const AdminManageDoctorForm = () => {
   };
 
   return (
-    <div className={classes.html}>
+    <div className={classes.image}>
       <section className={classes.auth}>
         <h1>Add New Doctor</h1>
 

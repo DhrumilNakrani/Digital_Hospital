@@ -255,7 +255,7 @@ const PatientForm = () => {
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Patient Login" : "Sign Up"}</h1>
+      <h3>{isLogin ? "PATIENT LOGIN" : "SIGN UP"}</h3>
 
       <form onSubmit={formSubmitHandler}>
         {!isLogin && (

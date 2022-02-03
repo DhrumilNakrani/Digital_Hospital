@@ -147,7 +147,7 @@ const AdminForm = () => {
   return (
     <React.Fragment>
       <section className={classes.auth}>
-        <h1>Admin Login</h1>
+        <h3>ADMIN LOGIN</h3>
 
         <form onSubmit={formSubmitHandler}>
         

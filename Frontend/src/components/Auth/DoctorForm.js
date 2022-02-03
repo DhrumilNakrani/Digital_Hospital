@@ -146,7 +146,7 @@ const DoctorForm = () => {
 
   return (
     <section className={classes.auth}>
-      <h1>Doctor Login</h1>
+      <h3>DOCTOR LOGIN</h3>
 
       <form onSubmit={formSubmitHandler}>
         {isLogin && (

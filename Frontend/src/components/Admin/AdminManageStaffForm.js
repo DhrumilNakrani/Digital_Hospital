@@ -228,7 +228,7 @@ const AdminManageStaffForm = () => {
 
   return (
 
-    <div className={classes.html}>
+    <div className={classes.image}>
     <section className={classes.auth}>
       <h1>Add New Staff</h1>
 
