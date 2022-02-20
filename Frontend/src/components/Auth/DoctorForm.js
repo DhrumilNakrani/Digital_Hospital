@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
-import classes from "./AdminForm.module.css";
-
+import classes from "./DoctorForm.module.css";
+import { Form, Group ,Card} from "react-bootstrap";
+import DoctorImage from "../images/Geometric2.png";
 const DoctorForm = () => {
-  // const authCtx = useContext(AuthContext);
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -54,97 +55,52 @@ const DoctorForm = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log("working");
-    history.push("/");
-    // if (isLogin) {
-    //   setIsLoading(true);
+    if (isLogin) {
+      setIsLoading(true);
 
-    //   try {
-    //     const response = await fetch("http://localhost:5000/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: enteredEmailLogin,
-    //         password: enteredPasswordLogin,
-    //       }),
-    //     });
+      try {
+        const response = await fetch("http://localhost:5000/doctor/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: enteredEmailLogin,
+            password: enteredPasswordLogin,
+          }),
+        });
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
+        const responseData = await response.json();
+        setIsLoading(false);
 
-    //     if (responseData.status === "201") {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else {
-    //       setIsInValidCredentials(true);
-    //       setEnteredEmailLogin("");
-    //       setEnteredPasswordLogin("");
+        if (responseData.status === "201") {
+          authCtx.login(responseData.token);
+          window.sessionStorage.setItem("doctorId", responseData.doctorId);
+          history.replace({
+            pathname: "/doctor/detail",
+            // doctorId : responseData.doctorDetail._id
+          });
+          // console.log(responseData.message);
+          // console.log(responseData.doctorId);
+        } else {
+          setIsInValidCredentials(true);
+          setEnteredEmailLogin("");
+          setEnteredPasswordLogin("");
 
-    //       setEnteredEmailLoginTouched(false);
-    //       setEnteredPasswordLoginTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   try {
-    //     setIsLoading(true);
-
-    //     const response = await fetch("http://localhost:5000/signup", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         firstName: enteredFirstName,
-    //         lastName: enteredLastName,
-    //         email: enteredEmail,
-    //         mobileNumber: enteredMobileNumber,
-    //         password: enteredPassword,
-    //         confirmPassword: enteredConfirmPassword,
-    //       }),
-    //     });
-
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
-
-    //     if (
-    //       responseData.status !== "422" &&
-    //       enteredPassword === enteredConfirmPassword
-    //     ) {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else if (enteredPassword !== enteredConfirmPassword) {
-    //       setIsPasswordValid(true);
-    //     } else {
-    //       setIsExsistingUser(true);
-    //       setEnteredEmail("");
-    //       setEnteredFirstName("");
-    //       setEnteredLastName("");
-    //       setEnteredMobileNumber("");
-    //       setEnteredPassword("");
-    //       setEnteredConfirmPassword("");
-
-    //       setEnteredConfirmPasswordTouched(false);
-    //       setEnteredPasswordTouched(false);
-    //       setEnteredEmailTouched(false);
-    //       setEnteredFirstNameTouched(false);
-    //       setEnteredLastNameTouched(false);
-    //       setEnteredMobileNumberTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+          setEnteredEmailLoginTouched(false);
+          setEnteredPasswordLoginTouched(false);
+          console.log(responseData.message);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
+    <React.Fragment>
+      <Card.Img src={DoctorImage} alt="Card image" height={850}/>
+      <Card.ImgOverlay>
     <section className={classes.auth}>
       <h3>DOCTOR LOGIN</h3>
 
@@ -162,7 +118,11 @@ const DoctorForm = () => {
                 onBlur={emailInputBlurHandlerLogin}
                 value={enteredEmailLogin}
               />
-              {emailInputIsInvalidLogin && <h6>Email must not be empty</h6>}
+              {emailInputIsInvalidLogin && (
+                <div className="p-3">
+                  <h6>Email must not be empty</h6>
+               </div>
+              )}
             </div>
             <div className={classes.control}>
               <label htmlFor="password">Password</label>
@@ -175,9 +135,10 @@ const DoctorForm = () => {
                 onBlur={passwordInputBlurHandlerLogin}
                 value={enteredPasswordLogin}
               />
-              {passwordInputIsInvalidLogin && (
-                <h6>Password must not be empty</h6>
-              )}
+              {passwordInputIsInvalidLogin && 
+              <div className="p-3">
+              <h6>Password must not be empty</h6>
+              </div>}
             </div>
           </div>
         )}
@@ -188,11 +149,15 @@ const DoctorForm = () => {
             <RingLoader color="white" height={80} width={80}></RingLoader>
           )}
           {isLogin && isInValidCredentials && (
-            <h6>Invalid credentials, could not log you in.</h6>
+            <div className="p-3">
+              <h6>Invalid credentials, could not log you in.</h6>
+            </div>
           )}
         </div>
       </form>
     </section>
+    </Card.ImgOverlay>
+    </React.Fragment>
   );
 };
 

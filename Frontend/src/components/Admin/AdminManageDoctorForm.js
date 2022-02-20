@@ -8,11 +8,9 @@ const AdminManageDoctorForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInValidCredentials, setIsInValidCredentials] = useState(false);
   const [isExsistingUser, setIsExsistingUser] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordInValid, setIsPasswordInValid] = useState(false);
 
   const [enteredAddress, setEnteredAddress] = useState("");
   const [enteredAddressTouched, setEnteredAddressTouched] = useState(false);
@@ -115,6 +113,7 @@ const AdminManageDoctorForm = () => {
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const passwordInputBlurHandler = (event) => {
@@ -124,6 +123,7 @@ const AdminManageDoctorForm = () => {
   const confirmPasswordInputChangeHandler = (event) => {
     setEnteredConfirmPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const confirmPasswordInputBlurHandler = (event) => {
@@ -146,247 +146,249 @@ const AdminManageDoctorForm = () => {
     enteredLastNameIsValid &&
     enteredPasswordIsValid &&
     enteredConfirmPasswordIsValid &&
-    enteredMobileNumberIsValid
+    enteredMobileNumberIsValid &&
+    enteredSpecializationIsValid &&
+    enteredAddressIsValid
   ) {
     formIsValid = true;
   }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("Doctor Signed Up Successfully");
-    // if (isLogin) {
-    //   setIsLoading(true);
 
-    //   try {
-    //     const response = await fetch("http://localhost:5000/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: enteredEmailLogin,
-    //         password: enteredPasswordLogin,
-    //       }),
-    //     });
+    // console.log("Doctor Signed Up Successfully");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
+    try {
+      setIsLoading(true);
 
-    //     if (responseData.status === "201") {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else {
-    //       setIsInValidCredentials(true);
-    //       setEnteredEmailLogin("");
-    //       setEnteredPasswordLogin("");
+      const response = await fetch("http://localhost:5000/doctor/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: enteredFirstName,
+          lastName: enteredLastName,
+          email: enteredEmail,
+          mobileNumber: enteredMobileNumber,
+          specialization: enteredSpecialization,
+          address: enteredAddress,
+          password: enteredPassword,
+          confirmPassword: enteredConfirmPassword,
+        }),
+      });
 
-    //       setEnteredEmailLoginTouched(false);
-    //       setEnteredPasswordLoginTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   try {
-    //     setIsLoading(true);
+      const responseData = await response.json();
+      setIsLoading(false);
 
-    //     const response = await fetch("http://localhost:5000/signup", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         firstName: enteredFirstName,
-    //         lastName: enteredLastName,
-    //         email: enteredEmail,
-    //         mobileNumber: enteredMobileNumber,
-    //         password: enteredPassword,
-    //         confirmPassword: enteredConfirmPassword,
-    //       }),
-    //     });
+      if (
+        responseData.status !== "422" &&
+        enteredPassword === enteredConfirmPassword
+      ) {
+        authCtx.login(responseData.token);
+        history.replace("/");
+        console.log(responseData.message);
+        console.log(responseData.doctorId);
+        console.log(responseData.token);
+      } else if (enteredPassword !== enteredConfirmPassword) {
+        setIsPasswordInValid(true);
+        console.log(responseData.message);
+      } else {
+        setIsExsistingUser(true);
+        setEnteredEmail("");
+        setEnteredFirstName("");
+        setEnteredLastName("");
+        setEnteredMobileNumber("");
+        setEnteredPassword("");
+        setEnteredConfirmPassword("");
+        setEnteredSpecialization("");
+        setEnteredAddress("");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
-
-    //     if (
-    //       responseData.status !== "422" &&
-    //       enteredPassword === enteredConfirmPassword
-    //     ) {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else if (enteredPassword !== enteredConfirmPassword) {
-    //       setIsPasswordValid(true);
-    //     } else {
-    //       setIsExsistingUser(true);
-    //       setEnteredEmail("");
-    //       setEnteredFirstName("");
-    //       setEnteredLastName("");
-    //       setEnteredMobileNumber("");
-    //       setEnteredPassword("");
-    //       setEnteredConfirmPassword("");
-
-    //       setEnteredConfirmPasswordTouched(false);
-    //       setEnteredPasswordTouched(false);
-    //       setEnteredEmailTouched(false);
-    //       setEnteredFirstNameTouched(false);
-    //       setEnteredLastNameTouched(false);
-    //       setEnteredMobileNumberTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+        setEnteredConfirmPasswordTouched(false);
+        setEnteredPasswordTouched(false);
+        setEnteredEmailTouched(false);
+        setEnteredFirstNameTouched(false);
+        setEnteredLastNameTouched(false);
+        setEnteredMobileNumberTouched(false);
+        setEnteredSpecializationTouched(false);
+        setEnteredAddressTouched(false);
+        console.log(responseData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className={classes.image}>
       <section className={classes.auth}>
-        <h1>Add New Doctor</h1>
+        <h3>Add New Doctor</h3>
 
         <form onSubmit={formSubmitHandler}>
-          {!isLogin && (
-            <div>
-              <div className={classes.control}>
-                <label htmlFor="text">First Name</label>
-                <input 
-                  type="text"
-                  id="fname"
-                  placeholder="First Name"
-                  required
-                  onChange={firstNameInputChangeHandler}
-                  onBlur={firstNameInputBlurHandler}
-                  value={enteredFirstName}
-                />
-                {firstNameInputIsInValid && (
+          <div>
+            <div className={classes.control}>
+              <label htmlFor="text">First Name</label>
+              <input
+                type="text"
+                id="fname"
+                placeholder="First Name"
+                required
+                onChange={firstNameInputChangeHandler}
+                onBlur={firstNameInputBlurHandler}
+                value={enteredFirstName}
+              />
+              {firstNameInputIsInValid && (
+                <div className="p-3">
                   <h6>First Name must not be empty</h6>
-                )}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="text">Last Name</label>
-                <input
-                  type="text"
-                  id="lname"
-                  placeholder="Last Name"
-                  required
-                  onChange={lastNameInputChangeHandler}
-                  onBlur={lastNameInputBlurHandler}
-                  value={enteredLastName}
-                />
-                {lastNameInputIsInValid && <h6>Last Name must not be empty</h6>}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  placeholder="abc@gmail.com"
-                  id="email"
-                  required
-                  onChange={emailInputChangeHandler}
-                  onBlur={emailInputBlurHandler}
-                  value={enteredEmail}
-                />
-                {emailInputIsInValid && <h6>Email must not be empty</h6>}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="text">Mobile Number</label>
-                <input
-                  type="text"
-                  id="number"
-                  placeholder="10 digit mobile number"
-                  pattern="[0-9]{10}"
-                  required
-                  onChange={mobileNumberInputChangeHandler}
-                  onBlur={mobileNumberInputBlurHandler}
-                  value={enteredMobileNumber}
-                />
-                {mobileNumberInputIsInValid && (
-                  <h6>Mobile Number must not be empty</h6>
-                )}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="text">Address</label>
-                <input
-                  type="text"
-                  id="address"
-                  placeholder="Address"
-                  required
-                  onChange={addressInputChangeHandler}
-                  onBlur={addressInputBlurHandler}
-                  value={enteredAddress}
-                />
-                {addressInputIsInvalid && <h6>Address must not be empty</h6>}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="text">Specialization</label>
-                <input
-                  type="text"
-                  id="specialization"
-                  placeholder="Specialization"
-                  required
-                  onChange={specializationInputChangeHandler}
-                  onBlur={specializationInputBlurHandler}
-                  value={enteredSpecialization}
-                />
-                {specializationInputIsInValid && (
-                  <h6>Specialization must not be empty</h6>
-                )}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  required
-                  minLength="6"
-                  onChange={passwordInputChangeHandler}
-                  onBlur={passwordInputBlurHandler}
-                  value={enteredPassword}
-                />
-                {passwordInputIsInValid && <h6>Password must not be empty</h6>}
-              </div>
-
-              <div className={classes.control}>
-                <label htmlFor="password">Confirm Password</label>
-                <input
-                  type="password"
-                  id="cpassword"
-                  placeholder="Confirm Password"
-                  required
-                  minLength="6"
-                  onChange={confirmPasswordInputChangeHandler}
-                  onBlur={confirmPasswordInputBlurHandler}
-                  value={enteredConfirmPassword}
-                />
-                {ConfirmPasswordInputIsInValid && (
-                  <h6>Confirm Password must not be empty</h6>
-                )}
-              </div>
+                </div>
+              )}
             </div>
-          )}
+
+            <div className={classes.control}>
+              <label htmlFor="text">Last Name</label>
+              <input
+                type="text"
+                id="lname"
+                placeholder="Last Name"
+                required
+                onChange={lastNameInputChangeHandler}
+                onBlur={lastNameInputBlurHandler}
+                value={enteredLastName}
+              />
+              {lastNameInputIsInValid && (
+                <div className="p-3">
+                  <h6>Last Name must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="abc@gmail.com"
+                id="email"
+                required
+                onChange={emailInputChangeHandler}
+                onBlur={emailInputBlurHandler}
+                value={enteredEmail}
+              />
+              {emailInputIsInValid && (
+                <div className="p-3">
+                  <h6>Email must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="text">Mobile Number</label>
+              <input
+                type="text"
+                id="number"
+                placeholder="10 digit mobile number"
+                pattern="[0-9]{10}"
+                required
+                onChange={mobileNumberInputChangeHandler}
+                onBlur={mobileNumberInputBlurHandler}
+                value={enteredMobileNumber}
+              />
+              {mobileNumberInputIsInValid && (
+                <div classname="p-3">
+                  <h6>Mobile Number must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="text">Address</label>
+              <input
+                type="text"
+                id="address"
+                placeholder="Address"
+                required
+                onChange={addressInputChangeHandler}
+                onBlur={addressInputBlurHandler}
+                value={enteredAddress}
+              />
+              {addressInputIsInvalid && (
+                <div className="p-3">
+                  <h6>Address must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="text">Specialization</label>
+              <input
+                type="text"
+                id="specialization"
+                placeholder="Specialization"
+                required
+                onChange={specializationInputChangeHandler}
+                onBlur={specializationInputBlurHandler}
+                value={enteredSpecialization}
+              />
+              {specializationInputIsInValid && (
+                <div className="p-3">
+                  <h6>Specialization must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+                minLength="6"
+                onChange={passwordInputChangeHandler}
+                onBlur={passwordInputBlurHandler}
+                value={enteredPassword}
+              />
+              {passwordInputIsInValid && (
+                <div className="p-3">
+                  <h6>Password must not be empty</h6>
+                </div>
+              )}
+            </div>
+
+            <div className={classes.control}>
+              <label htmlFor="password">Confirm Password</label>
+              <input
+                type="password"
+                id="cpassword"
+                placeholder="Confirm Password"
+                required
+                minLength="6"
+                onChange={confirmPasswordInputChangeHandler}
+                onBlur={confirmPasswordInputBlurHandler}
+                value={enteredConfirmPassword}
+              />
+              {ConfirmPasswordInputIsInValid && (
+                <div className="p-3">
+                  <h6>Confirm Password must not be empty</h6>
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className={classes.actions}>
-            {!isLoading && <button disabled={!formIsValid}>Create Account</button>}
+            {!isLoading && (
+              <button disabled={!formIsValid}>Create Account</button>
+            )}
             {isLoading && (
               <RingLoader color="white" height={80} width={80}></RingLoader>
             )}
-            {isLogin && isInValidCredentials && (
-              <h6>Invalid credentials, could not log you in.</h6>
+            {isExsistingUser && (
+              <div className="p-3">
+                <h6>User exists already, please login instead.</h6>
+              </div>
             )}
-            {!isLogin && isExsistingUser && (
-              <h6>User exists already, please login instead.</h6>
-            )}
-            {!isLogin && isPasswordValid && (
-              <h6>Password and Confirm Password must be same.</h6>
+            {isPasswordInValid && (
+              <div className="p-3">
+                <h6>Password and Confirm Password must be same.</h6>
+              </div>
             )}
           </div>
         </form>

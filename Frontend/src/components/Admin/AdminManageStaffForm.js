@@ -8,11 +8,9 @@ const AdminManageStaffForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-  const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInValidCredentials, setIsInValidCredentials] = useState(false);
   const [isExsistingUser, setIsExsistingUser] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordInValid, setIsPasswordInValid] = useState(false);
 
   const [enteredAddress, setEnteredAddress] = useState("");
   const [enteredAddressTouched, setEnteredAddressTouched] = useState(false);
@@ -70,7 +68,7 @@ const AdminManageStaffForm = () => {
   const addressInputBlurHandler = () => {
     setEnteredAddressTouched(true);
   };
-  
+
   const firstNameInputChangeHandler = (event) => {
     setEnteredFirstName(event.target.value);
     setIsExsistingUser(false);
@@ -100,6 +98,7 @@ const AdminManageStaffForm = () => {
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const passwordInputBlurHandler = (event) => {
@@ -109,6 +108,7 @@ const AdminManageStaffForm = () => {
   const confirmPasswordInputChangeHandler = (event) => {
     setEnteredConfirmPassword(event.target.value);
     setIsExsistingUser(false);
+    setIsPasswordInValid(false);
   };
 
   const confirmPasswordInputBlurHandler = (event) => {
@@ -131,109 +131,78 @@ const AdminManageStaffForm = () => {
     enteredLastNameIsValid &&
     enteredPasswordIsValid &&
     enteredConfirmPasswordIsValid &&
-    enteredMobileNumberIsValid
+    enteredMobileNumberIsValid &&
+    enteredAddressIsValid
   ) {
     formIsValid = true;
   }
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("Staff Signed Up Successfully");
-    // if (isLogin) {
-    //   setIsLoading(true);
 
-    //   try {
-    //     const response = await fetch("http://localhost:5000/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         email: enteredEmailLogin,
-    //         password: enteredPasswordLogin,
-    //       }),
-    //     });
+    // console.log("Staff Signed Up Successfully");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
+    try {
+      setIsLoading(true);
 
-    //     if (responseData.status === "201") {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else {
-    //       setIsInValidCredentials(true);
-    //       setEnteredEmailLogin("");
-    //       setEnteredPasswordLogin("");
+      const response = await fetch("http://localhost:5000/staff/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: enteredFirstName,
+          lastName: enteredLastName,
+          email: enteredEmail,
+          mobileNumber: enteredMobileNumber,
+          address: enteredAddress,
+          password: enteredPassword,
+          confirmPassword: enteredConfirmPassword,
+        }),
+      });
 
-    //       setEnteredEmailLoginTouched(false);
-    //       setEnteredPasswordLoginTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   try {
-    //     setIsLoading(true);
+      const responseData = await response.json();
+      setIsLoading(false);
 
-    //     const response = await fetch("http://localhost:5000/signup", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         firstName: enteredFirstName,
-    //         lastName: enteredLastName,
-    //         email: enteredEmail,
-    //         mobileNumber: enteredMobileNumber,
-    //         password: enteredPassword,
-    //         confirmPassword: enteredConfirmPassword,
-    //       }),
-    //     });
+      if (
+        responseData.status !== "422" &&
+        enteredPassword === enteredConfirmPassword
+      ) {
+        authCtx.login(responseData.token);
+        history.replace("/");
+        console.log(responseData.message);
+      } else if (enteredPassword !== enteredConfirmPassword) {
+        setIsPasswordInValid(true);
+        console.log(responseData.message);
+      } else {
+        setIsExsistingUser(true);
+        setEnteredEmail("");
+        setEnteredFirstName("");
+        setEnteredLastName("");
+        setEnteredMobileNumber("");
+        setEnteredPassword("");
+        setEnteredConfirmPassword("");
+        setEnteredAddress("");
 
-    //     const responseData = await response.json();
-    //     setIsLoading(false);
-
-    //     if (
-    //       responseData.status !== "422" &&
-    //       enteredPassword === enteredConfirmPassword
-    //     ) {
-    //       authCtx.login(responseData.token);
-    //       history.replace("/");
-    //       console.log(responseData.message);
-    //     } else if (enteredPassword !== enteredConfirmPassword) {
-    //       setIsPasswordValid(true);
-    //     } else {
-    //       setIsExsistingUser(true);
-    //       setEnteredEmail("");
-    //       setEnteredFirstName("");
-    //       setEnteredLastName("");
-    //       setEnteredMobileNumber("");
-    //       setEnteredPassword("");
-    //       setEnteredConfirmPassword("");
-
-    //       setEnteredConfirmPasswordTouched(false);
-    //       setEnteredPasswordTouched(false);
-    //       setEnteredEmailTouched(false);
-    //       setEnteredFirstNameTouched(false);
-    //       setEnteredLastNameTouched(false);
-    //       setEnteredMobileNumberTouched(false);
-    //       console.log(responseData.message);
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+        setEnteredConfirmPasswordTouched(false);
+        setEnteredPasswordTouched(false);
+        setEnteredEmailTouched(false);
+        setEnteredFirstNameTouched(false);
+        setEnteredLastNameTouched(false);
+        setEnteredMobileNumberTouched(false);
+        setEnteredAddressTouched(false);
+        console.log(responseData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-
     <div className={classes.image}>
-    <section className={classes.auth}>
-      <h1>Add New Staff</h1>
+      <section className={classes.auth}>
+        <h3>Add New Staff</h3>
 
-      <form onSubmit={formSubmitHandler}>
-        {!isLogin && (
+        <form onSubmit={formSubmitHandler}>
           <div>
             <div className={classes.control}>
               <label htmlFor="text">First Name</label>
@@ -246,7 +215,11 @@ const AdminManageStaffForm = () => {
                 onBlur={firstNameInputBlurHandler}
                 value={enteredFirstName}
               />
-              {firstNameInputIsInValid && <h6>First Name must not be empty</h6>}
+              {firstNameInputIsInValid && (
+                <div className="p-3">
+                  <h6>First Name must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -260,7 +233,11 @@ const AdminManageStaffForm = () => {
                 onBlur={lastNameInputBlurHandler}
                 value={enteredLastName}
               />
-              {lastNameInputIsInValid && <h6>Last Name must not be empty</h6>}
+              {lastNameInputIsInValid && (
+                <div className="p-3">
+                  <h6>Last Name must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -274,7 +251,11 @@ const AdminManageStaffForm = () => {
                 onBlur={emailInputBlurHandler}
                 value={enteredEmail}
               />
-              {emailInputIsInValid && <h6>Email must not be empty</h6>}
+              {emailInputIsInValid && (
+                <div className="p-3">
+                  <h6>Email must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -290,7 +271,9 @@ const AdminManageStaffForm = () => {
                 value={enteredMobileNumber}
               />
               {mobileNumberInputIsInValid && (
-                <h6>Mobile Number must not be empty</h6>
+                <div className="p-3">
+                  <h6>Mobile Number must not be empty</h6>
+                </div>
               )}
             </div>
 
@@ -305,7 +288,11 @@ const AdminManageStaffForm = () => {
                 onBlur={addressInputBlurHandler}
                 value={enteredAddress}
               />
-              {addressInputIsInvalid && <h6>Address must not be empty</h6>}
+              {addressInputIsInvalid && (
+                <div className="p-3">
+                  <h6>Address must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -320,7 +307,11 @@ const AdminManageStaffForm = () => {
                 onBlur={passwordInputBlurHandler}
                 value={enteredPassword}
               />
-              {passwordInputIsInValid && <h6>Password must not be empty</h6>}
+              {passwordInputIsInValid && (
+                <div className="p-3">
+                  <h6>Password must not be empty</h6>
+                </div>
+              )}
             </div>
 
             <div className={classes.control}>
@@ -336,31 +327,33 @@ const AdminManageStaffForm = () => {
                 value={enteredConfirmPassword}
               />
               {ConfirmPasswordInputIsInValid && (
-                <h6>Confirm Password must not be empty</h6>
+                <div className="p-3">
+                  <h6>Confirm Password must not be empty</h6>
+                </div>
               )}
             </div>
           </div>
-        )}
 
-        <div className={classes.actions}>
-          {!isLoading && (
-            <button disabled={!formIsValid}>Create Account</button>
-          )}
-          {isLoading && (
-            <RingLoader color="white" height={80} width={80}></RingLoader>
-          )}
-          {isLogin && isInValidCredentials && (
-            <h6>Invalid credentials, could not log you in.</h6>
-          )}
-          {!isLogin && isExsistingUser && (
-            <h6>User exists already, please login instead.</h6>
-          )}
-          {!isLogin && isPasswordValid && (
-            <h6>Password and Confirm Password must be same.</h6>
-          )}
-        </div>
-      </form>
-    </section>
+          <div className={classes.actions}>
+            {!isLoading && (
+              <button disabled={!formIsValid}>Create Account</button>
+            )}
+            {isLoading && (
+              <RingLoader color="white" height={80} width={80}></RingLoader>
+            )}
+            {isExsistingUser && (
+              <div className="p-3">
+                <h6>User exists already, please login instead.</h6>
+              </div>
+            )}
+            {isPasswordInValid && (
+              <div className="p-3">
+                <h6>Password and Confirm Password must be same.</h6>
+              </div>
+            )}
+          </div>
+        </form>
+      </section>
     </div>
   );
 };

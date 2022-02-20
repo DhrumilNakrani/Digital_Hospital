@@ -67,8 +67,8 @@ const AdminDeleteDoctorForm = () => {
   return (
     <div className={classes.image}>
     <section className={classes.auth}>
-      <h1>Delete Doctor</h1>
-
+      <h3>Delete Doctor</h3>
+      
       <form onSubmit={formSubmitHandler}>
         <div>
           <div className={classes.control}>
