@@ -117,3 +117,46 @@ exports.postDelete = (req, res, next) => {
     }
   });
 };
+
+exports.updateInformation = async (req, res, next) => {
+  const id = req.params.staffId;
+  // console.log(id);
+  const { firstName, lastName, mobileNumber ,address} = req.body;
+
+  Staff.updateOne(
+    { _id: id },
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        mobileNumber: mobileNumber,
+        address:address
+      },
+    },
+    { upsert: true }
+  )
+    .then((staff) => {
+      // console.log(user);
+      res.status(201).json({
+        staffDetails: staff,
+        message: "Data updated successfully",
+        status: "201",
+      });
+    })
+    .catch((err) => {
+      console.log("Error");
+    });
+};
+
+exports.getStaff = async (req, res, next) => {
+  const id = req.params.staffId;
+  let staff;
+  try {
+    staff = await Staff.findById({ _id: id }, "-password");
+  } catch (err) {
+    console.log(err);
+  }
+  // console.log(patient);
+  // console.log(patient.documents[0].patientDoc);
+  res.json({ staff: staff });
+};

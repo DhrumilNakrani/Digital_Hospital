@@ -1,6 +1,9 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import classes from "./AdminStarting.module.css";
+import IMG1 from "../images/Admin1.jpg"
+import IMG2 from "../images/Admin2.jpg"
+import IMG3 from "../images/Admin3.jpg"
 const AdminStarting = () => {
   return (
     <React.Fragment>
@@ -10,9 +13,9 @@ const AdminStarting = () => {
             <Carousel.Item interval={5000}>
               <img
                 className="d-block w-100"
-                src="https://media.istockphoto.com/photos/close-up-of-doctor-is-touching-digital-virtual-screen-for-analytics-picture-id1273886962?b=1&k=20&m=1273886962&s=170667a&w=0&h=f9FyAVFdXEwAv7qdEFWbdfLoqa7z87rwyKsd9iqrjBw="
+                src={IMG1}
                 alt="First slide"
-                height={550}
+                height={669}
                 width={100}
               />
               <Carousel.Caption>
@@ -23,9 +26,9 @@ const AdminStarting = () => {
             <Carousel.Item interval={5000}>
               <img
                 className="d-block w-100"
-                src="https://media.istockphoto.com/photos/over-the-shoulder-shot-of-senior-medical-scientist-working-with-ct-picture-id1050311748?b=1&k=20&m=1050311748&s=170667a&w=0&h=LBGjHzonYmWN1Qdb8Hd-YrC87gWHTPpjlfpyStl6Ajs="
+                src={IMG3}
                 alt="Second slide"
-                height={550}
+                height={669}
                 width={100}
               />
               <Carousel.Caption>
@@ -37,9 +40,9 @@ const AdminStarting = () => {
             <Carousel.Item interval={5000}>
               <img
                 className="d-block w-100"
-                src="https://media.istockphoto.com/photos/an-employee-pulls-a-trolley-for-cleaning-offices-woman-cleaner-is-in-picture-id1316473356?b=1&k=20&m=1316473356&s=170667a&w=0&h=7nYl9IEj2K_MsU4Z0BMVRmhGygh9Nx6vkpVDIvGGHMA="
+                src={IMG2}
                 alt="Third slide"
-                height={550}
+                height={669}
                 width={100}
               />
               <Carousel.Caption>

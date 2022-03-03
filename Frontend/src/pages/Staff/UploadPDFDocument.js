@@ -32,7 +32,7 @@ const UploadPDFDocument = () => {
     // console.log( "http://localhost:5000/upload/document/"+patientId);
     const formData = new FormData();
     formData.append("file", uploadFile); //image
-    formData.append("patient", patientId); 
+    formData.append("patient", patientId);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -76,29 +76,28 @@ const UploadPDFDocument = () => {
 
   return (
     <>
-      {/* <Card.Img src={DocumentImage} alt="Card image" height={850} />
-      <Card.ImgOverlay> */}
-        <Navbar bg="dark" sticky="top" variant="dark">
-          <Container>
-            <Navbar.Brand as={NavLink} to="/staff/home">
-              Welcome Staff
-            </Navbar.Brand>
-            <Nav className="ms-auto">
-              <Nav.Link
-                as={NavLink}
-                activeClassName={classes.active}
-                to="/staff/upload-patient-document"
-              >
-                UPLOAD PATIENT DOCUMENT
-              </Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-
+      <Navbar bg="dark" sticky="top" variant="dark" >
+        <Container>
+          <Navbar.Brand as={NavLink} to="/staff/home">
+            Welcome Staff
+          </Navbar.Brand>
+          <Nav className="ms-auto">
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              style={{fontSize: 16}}
+              to="/staff/upload-patient-document"
+            >
+              UPLOAD PATIENT DOCUMENT
+            </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <div style={{background:"linear-gradient(#181717e5 0%, #2162d1ad 100%)" ,display:"flex",minHeight:"673px"}}>
         <div className="container">
           <form className={classes.auth}>
             <label>
-              <h5>Upload PDF</h5>
+              <h5 className={classes.textcolors}>Upload PDF</h5>
             </label>
             <br></br>
 
@@ -122,7 +121,7 @@ const UploadPDFDocument = () => {
               </Button>
             )}
           </div>
-          <h5>View PDF</h5>
+          <h5 className={classes.textcolors}>View PDF</h5>
           <div className="viewer">
             {pdfFile && (
               <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
@@ -133,10 +132,10 @@ const UploadPDFDocument = () => {
               </Worker>
             )}
 
-            {!pdfFile && <h5>No file is selected yet</h5>}
+            {!pdfFile && <h5 className={classes.textcolors}>No file is selected yet</h5>}
           </div>
         </div>
-      {/* </Card.ImgOverlay> */}
+      </div>
     </>
   );
 };

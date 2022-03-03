@@ -18,4 +18,6 @@ router.post("/find/patient", patientController.findPatient);
 
 router.post("/upload/document", uploadFile, patientController.uploadDocument);
 
+router.put("/update/:patientId",patientController.updateInformation);
+
 module.exports = router;

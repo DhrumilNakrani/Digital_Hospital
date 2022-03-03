@@ -50,6 +50,22 @@ const PatientMainNavigation = () => {
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
+              to="/patient/search-doctor"
+              style={style1}
+            >
+              SEARCH DOCTOR
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              to="/patient/update-profile"
+              style={style1}
+            >
+              UPDATE PROFILE
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
               to="/patient/contact"
               style={style1}
             >

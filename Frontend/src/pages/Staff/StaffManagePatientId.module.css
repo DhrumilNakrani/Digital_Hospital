@@ -1,13 +1,14 @@
-/* .image {
+.image {
     overflow-y: hidden !important;
-    background-image: url("../images/julien-flutto-HPha3t0r4MU-unsplash.jpg") !important;
+    background-image: url("../../components/images/document.jpeg") !important;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  } */
+    height:673px;
+  }
   .auth h3 {
     border-bottom: 4px solid rgb(86, 86, 197);;
     display: inline-block;

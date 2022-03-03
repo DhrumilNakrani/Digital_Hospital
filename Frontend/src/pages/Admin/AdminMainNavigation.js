@@ -88,7 +88,7 @@ const AdminMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="dark" sticky="top" variant="dark">
         <Container>
-          <Navbar.Brand as={NavLink} to="/admin/home">
+          <Navbar.Brand as={NavLink} to="/admin/home" activeClassName={classes.adminborder}>
             Welcome Admin
           </Navbar.Brand>
           <Nav className="ms-auto">

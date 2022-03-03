@@ -84,3 +84,8 @@
     border-bottom: 4px solid rgb(13, 230, 230);
     display: inline-block;
   }
+
+  .staffborder
+  {
+    border-bottom: 4px solid rgb(13, 230, 31);
+  }

@@ -157,7 +157,7 @@ exports.postSingup = (req, res, next) => {
             });
             res.status(201).json({
               message: "Signed up Successfully",
-              userId: result.id,
+              patientId: result.id,
               token: token,
             });
           })
@@ -223,4 +223,33 @@ exports.getDocument = async (req, res, next) => {
       // file.pipe(res);
     }
   });
+};
+
+exports.updateInformation = async (req, res, next) => {
+  const id = req.params.patientId;
+  console.log(id);
+  const { firstName, lastName, mobileNumber } = req.body;
+
+  User.updateOne(
+    { _id: id },
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        mobileNumber: mobileNumber,
+      },
+    },
+    { upsert: true }
+  )
+    .then((user) => {
+      // console.log(user);
+      res.status(201).json({
+        patientDetails: user,
+        message: "Data updated successfully",
+        status: "201",
+      });
+    })
+    .catch((err) => {
+      console.log("Error");
+    });
 };

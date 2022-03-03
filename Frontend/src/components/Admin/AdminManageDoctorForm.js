@@ -185,7 +185,7 @@ const AdminManageDoctorForm = () => {
         enteredPassword === enteredConfirmPassword
       ) {
         authCtx.login(responseData.token);
-        history.replace("/");
+        history.replace("/admin/home");
         console.log(responseData.message);
         console.log(responseData.doctorId);
         console.log(responseData.token);

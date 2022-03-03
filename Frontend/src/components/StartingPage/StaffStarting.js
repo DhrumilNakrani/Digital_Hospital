@@ -8,7 +8,6 @@ const StaffStarting = () => {
       <div className={classes.image}>
       <section className={classes.starting}>
         <h1>Welcome Staff</h1>
-        {/* <Slider></Slider> */}
       </section>
       </div>
     </React.Fragment>

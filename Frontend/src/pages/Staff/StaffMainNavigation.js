@@ -28,7 +28,7 @@ const StaffMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="dark" sticky="top" variant="dark">
         <Container>
-          <Navbar.Brand as={NavLink} to="/staff/home">
+          <Navbar.Brand as={NavLink} to="/staff/home" activeClassName={classes.staffborder}>
             Welcome Staff
           </Navbar.Brand>
           <Nav className="ms-auto">
@@ -36,15 +36,25 @@ const StaffMainNavigation = () => {
               as={NavLink}
               activeClassName={classes.active}
               to="/staff/manage-patient-id"
+              style={{fontSize: 16}}
             >
               UPLOAD PATIENT DOCUMENT
             </Nav.Link>
+
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
-              to="/staff/delete-patient-document"
+              to="/staff/detail"
             >
-              DELETE PATIENT DOCUMENT
+              DETAILS
+            </Nav.Link>
+
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              to="/staff/update-profile"
+            >
+              UPDATE PROFILE
             </Nav.Link>
           </Nav>
           {isLoggedIn && (

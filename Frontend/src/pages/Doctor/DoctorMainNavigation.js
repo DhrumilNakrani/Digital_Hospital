@@ -50,6 +50,14 @@ const DoctorMainNavigation = () => {
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
+              to="/doctor/update-profile"
+              style={style1}
+            >
+              UPDATE PROFILE
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
               to="/doctor/contact"
               style={style1}
             >

@@ -3,6 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import classes from "./MainNavigation.module.css";
 import AuthContext from "../store/auth-context";
+import {GiHospitalCross} from "react-icons/gi"
 import {
   Navbar,
   Nav,
@@ -23,10 +24,10 @@ const MainNavigation = () => {
   const isLoggedIn = authCtx.isLoggedIn;
   const style1 = {
     color: "white",
-    fontSize: 16,
+    fontSize: 16
   };
   const style2 = {
-    color: "pink",
+    color: "white",
     fontSize: 20,
   };
 
@@ -84,8 +85,8 @@ const MainNavigation = () => {
     <React.Fragment>
       <Navbar bg="p-3 bg-dark text-white" sticky="top" variant="light">
         <Container>
-          <Navbar.Brand as={NavLink} to="/" style={style1}>
-            Work in progress
+          <Navbar.Brand as={NavLink} to="/" style={style2}>
+            Digital Hospital
           </Navbar.Brand>
           <Nav className="ms-auto">
             <Nav.Link

@@ -13,5 +13,8 @@ router.post(
 //   [check("password").isLength({ min: 5 })],
   staffController.postSingup
 );
+router.put("/update/:staffId",staffController.updateInformation);
+
+router.get("/detail/:staffId", staffController.getStaff)
 
 module.exports = router;
