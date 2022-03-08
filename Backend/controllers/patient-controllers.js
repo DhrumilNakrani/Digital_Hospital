@@ -2,8 +2,9 @@ const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const path = require("path");
-// const { validationResult } = require('express-validator');
 const User = require("../models/patient");
+const { v1: uuidv1 } = require('uuid');
+const RazorPay = require("razorpay");
 
 exports.uploadDocument = async (req, res, next) => {
   const id = req.body.patient;
@@ -32,9 +33,6 @@ exports.uploadDocument = async (req, res, next) => {
     console.log("Error !");
   }
   // console.log(patient);
-  // res.json({patient:patient});
-
-  // res.json({ patient: patientDetails });
 };
 
 exports.findPatient = (req, res, next) => {
@@ -53,7 +51,6 @@ exports.findPatient = (req, res, next) => {
           status: "201",
           patientId: user.id,
         });
-        // console.log(user);
       }
     })
     .catch((err) => {
@@ -69,8 +66,6 @@ exports.getPatient = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  // console.log(patient);
-  // console.log(patient.documents[0].patientDoc);
   res.json({ patient: patient });
 };
 
@@ -100,7 +95,6 @@ exports.postLogin = (req, res, next) => {
                 patientId: user.id,
                 token: token,
               });
-              // console.log(user);
             } else {
               res.status(401).json({
                 message: "Invalid credentials, could not log you in.",
@@ -178,10 +172,9 @@ exports.postSingup = (req, res, next) => {
 exports.getDocument = async (req, res, next) => {
   const id = req.params.patientId;
   const props = req.params.props;
-  // console.log(id);
+
   let patient;
-  // console.log("Hello");
-  // console.log(props);
+
   patient = await User.findById({ _id: id }).then((user) => {
     if (!user) {
       res.status(401).json({
@@ -214,13 +207,6 @@ exports.getDocument = async (req, res, next) => {
           res.send(data);
         }
       });
-      // const file = fs.createReadStream(docPath);
-      // res.setHeader("Content-Type", "application/pdf");
-      // res.setHeader(
-      //   "Content-Disposition",
-      //   'inline; filename="' + docName + '"'
-      // );
-      // file.pipe(res);
     }
   });
 };
@@ -242,7 +228,6 @@ exports.updateInformation = async (req, res, next) => {
     { upsert: true }
   )
     .then((user) => {
-      // console.log(user);
       res.status(201).json({
         patientDetails: user,
         message: "Data updated successfully",
@@ -253,3 +238,25 @@ exports.updateInformation = async (req, res, next) => {
       console.log("Error");
     });
 };
+
+exports.getPayment = async (req, res, next) => {
+  try {
+    const instance = new RazorPay({
+      key_id: process.env.RZR_PAY_ID,
+      key_secret: process.env.RZR_PAY_SECRET,
+    });
+
+    const options = {
+      amount: req.body.amount * 100, // amount in the smallest currency unit
+      currency: "INR",
+      receipt: `${uuidv1()}`,
+    };
+
+    // const pay = await instance.orders.create(options);
+
+    return res.status(201).json("Payment Done Successfully!");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
+  }
+}

@@ -4,22 +4,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import classes from "./DoctorMainNavigation.module.css";
 import AuthContext from "../../store/auth-context";
 import Button from "react-bootstrap/Button";
-
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Container,
-} from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 const style1 = {
   color: "white",
   fontSize: 16,
-};
-const style2 = {
-  color: "pink",
-  fontSize: 20,
 };
 const DoctorMainNavigation = () => {
   const history = useHistory();
@@ -35,7 +23,7 @@ const DoctorMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="p-3 bg-dark text-white" sticky="top" variant="light">
         <Container>
-          <Navbar.Brand as={NavLink} to="/doctor/home" style={style1}>
+          <Navbar.Brand as={NavLink} to="/doctor/home" style={style1} activeClassName={classes.doctorborder}>
             Welcome Doctor
           </Navbar.Brand>
           <Nav className="ms-auto">
@@ -61,7 +49,7 @@ const DoctorMainNavigation = () => {
               to="/doctor/contact"
               style={style1}
             >
-              CONTACT
+              CONTACT US
             </Nav.Link>
             <Nav.Link
               as={NavLink}
@@ -72,16 +60,16 @@ const DoctorMainNavigation = () => {
               ABOUT US
             </Nav.Link>
             {isLoggedIn && (
-            <li>
-              <Button
-                variant="outline-info"
-                onClick={logoutHandler}
-                alt="LOGOUT"
-              >
-                LOGOUT
-              </Button>
-            </li>
-          )}
+              <li>
+                <Button
+                  variant="outline-info"
+                  onClick={logoutHandler}
+                  alt="LOGOUT"
+                >
+                  LOGOUT
+                </Button>
+              </li>
+            )}
           </Nav>
         </Container>
       </Navbar>

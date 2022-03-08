@@ -1,11 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
 import classes from "./StaffManagePatientId.module.css";
 
 const StaffManagePatientId = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -49,11 +47,7 @@ const StaffManagePatientId = () => {
       setIsLoading(false);
 
       if (responseData.status === "201") {
-        // authCtx.login(responseData.token);
         history.replace("/staff/upload-patient-document");
-        // console.log(responseData.message);
-
-        // console.log(responseData.patientId);
         localStorage.setItem("patientId",responseData.patientId);
       } else {
         setIsNotExist(true);

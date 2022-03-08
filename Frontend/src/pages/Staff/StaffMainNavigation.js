@@ -7,9 +7,6 @@ import { useContext } from "react";
 import {
   Navbar,
   Nav,
-  NavDropdown,
-  Form,
-  FormControl,
   Container,
 } from "react-bootstrap";
 
@@ -45,6 +42,7 @@ const StaffMainNavigation = () => {
               as={NavLink}
               activeClassName={classes.active}
               to="/staff/detail"
+              style={{fontSize: 16}}
             >
               DETAILS
             </Nav.Link>
@@ -53,6 +51,7 @@ const StaffMainNavigation = () => {
               as={NavLink}
               activeClassName={classes.active}
               to="/staff/update-profile"
+              style={{fontSize: 16}}
             >
               UPDATE PROFILE
             </Nav.Link>

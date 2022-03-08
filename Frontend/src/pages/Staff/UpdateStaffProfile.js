@@ -1,15 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
-import PatientImage from "../../components/images/PatientVector.jpg";
 import StaffMainNavigation from "./StaffMainNavigation";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import classes from "../../components/Auth/PatientForm.module.css";
-import StaffImage from "../../components/images/StaffVector.jpg"; 
+import StaffImage from "../../components/images/StaffVector.jpg";
 
 const UpdateStaffProfile = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [staff, setStaff] = useState("");
@@ -64,7 +61,6 @@ const UpdateStaffProfile = () => {
           address: responseData.staff.address,
         };
         setStaff(staffDetail);
-        // console.log(responseData.message);
       } catch (err) {
         console.log("error");
       }
@@ -93,13 +89,9 @@ const UpdateStaffProfile = () => {
 
       const responseData = await response.json();
       setIsLoading(false);
-    
+
       if (responseData.status === "201") {
-        // authCtx.login(responseData.token);
-        //window.sessionStorage.setItem("userId", responseData.userId);
-        // window.sessionStorage.setItem("patientId", responseData.patientId);
         history.replace("/staff/detail");
-        // console.log("Doctor");
         console.log(responseData.message);
       } else {
         setIsExsistingUser(true);

@@ -19,8 +19,8 @@ const AdminStarting = () => {
                 width={100}
               />
               <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <h3 style={{color:"white"}}>NOT JUST AN ADMIN!</h3>
+                <p style={{color:"white"}}>DISCOVER THE RESPECT , VALUE AND POWER OF THE ADMINISTRATIVE PROFESSION</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={5000}>
@@ -32,9 +32,8 @@ const AdminStarting = () => {
                 width={100}
               />
               <Carousel.Caption>
-                Specialization
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3 style={{color:"black"}}>ADMIN ARE...</h3>
+                <p style={{color:"black"}}>PART SUPER , PART CRAZY , 100% THE GLUE OF THE SYSTEM</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={5000}>
@@ -46,9 +45,9 @@ const AdminStarting = () => {
                 width={100}
               />
               <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                <h3 style={{color:"#faf605"}}>-Paul Steinbrueck</h3>
+                <p style={{color:"#faf605"}}>
+                  THE MORE ENGAGED YOU ARE AS A WEBSITE ADMINISTRATOR , THE MORE ENGAGING YOUR WEBSITE WILL BE.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>

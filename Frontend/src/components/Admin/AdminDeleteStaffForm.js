@@ -1,16 +1,14 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
 import classes from "./AdminDeleteStaffForm.module.css";
 
 const AdminDeleteStaffForm = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isNotExist , setIsNotExist] = useState(false);
+  const [isNotExist, setIsNotExist] = useState(false);
 
   const [enteredStaffId, setEnteredStaffId] = useState("");
   const [enteredStaffIdTouched, setEnteredStaffIdTouched] = useState(false);
@@ -81,14 +79,14 @@ const AdminDeleteStaffForm = () => {
                 onBlur={doctorIdInputBlurHandler}
                 value={enteredStaffId}
               />
-              {staffIdInputIsInValid && <h6>Staff ID must not be empty</h6>}
+              {staffIdInputIsInValid && <div className="p-3"><h6>Staff ID must not be empty</h6></div>}
             </div>
             <div className={classes.actions}>
               <button disabled={!formIsValid}>Delete</button>
               {isLoading && (
                 <RingLoader color="white" height={80} width={80}></RingLoader>
               )}
-              {isNotExist && <h6>Staff does not exist</h6>}
+              {isNotExist && <div className="p-3"> <h6>Staff does not exist</h6></div>}
             </div>
           </div>
         </form>

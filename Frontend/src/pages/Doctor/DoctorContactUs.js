@@ -1,5 +1,4 @@
 import React from "react";
-//import classes from "./DoctorContactUs.module.css";
 import DoctorMainNavigation from "./DoctorMainNavigation";
 import Footer from "../Footer";
 import { BsInstagram } from "react-icons/bs";

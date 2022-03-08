@@ -7,6 +7,7 @@ const PatientAboutUs = () => {
   return (
     <React.Fragment>
       <PatientMainNavigation></PatientMainNavigation>
+      <div className="background2">
       <div className="section">
         <div className="container">
           <div className="title">
@@ -14,7 +15,7 @@ const PatientAboutUs = () => {
           </div>
           <div className="content">
             <div className="article">
-              <h4>
+              <h4 style={{color:"white" , fontFamily:"times-new-roman"}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia luctus ullamcorper. Mauris tincidunt ex sit amet leo eleifend, in venenatis elit efficitur. Ut at mi sit amet nunc ultrices mattis vel sed mi. Donec fermentum vulputate tellus imperdiet fringilla. Nam ac ligula tincidunt, egestas odio vel, vulputate dolor. Donec non nibh mollis, tincidunt ligula non, pulvinar ipsum. Nullam tempus dolor tellus, id consectetur nunc vulputate in. Donec venenatis, magna at eleifend eleifend, turpis libero malesuada dui, sed semper diam justo vitae ante. Phasellus euismod justo tortor, a tempus nunc faucibus imperdiet.
               </h4>
             </div>
@@ -30,8 +31,8 @@ const PatientAboutUs = () => {
         <div className="row justify-content-center">
           <div className="col-12 col-sm-8 col-lg-6">
             <div className="section_heading text-center wow fadeInUp" data-wow-delay="0.2s">
-              <h3>Our Creative <span> Team</span></h3>
-              <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
+              <h3 style={{color:"white" , fontFamily:"times-new-roman",borderBottom:"5px solid #c4d156", display:"inline-block"}}>Our Creative <span> Team</span></h3>
+              <p style={{color:"white"}}>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
               <div className="line"></div>
             </div>
           </div>
@@ -82,6 +83,7 @@ const PatientAboutUs = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <Footer></Footer>
     </React.Fragment>

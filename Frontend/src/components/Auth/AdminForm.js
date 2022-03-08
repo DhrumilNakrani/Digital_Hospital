@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import classes from "./AdminForm.module.css";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import AdminImage from "../images/AdminVector.jpg";
 const AdminForm = () => {
   const authCtx = useContext(AuthContext);
@@ -97,10 +97,9 @@ const AdminForm = () => {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.imagebox}>
-          <img src={AdminImage} className="img-fluid" alt="Phone image" style={{ width: "600px" }} />
+          <img src={AdminImage} className="img-fluid" alt="Admin image" style={{ width: "600px" }} />
         </div>
         <div className={classes.loginbox}>
-          {/* <Card.Img src={AdminImage} alt="Card image" height={661} /> */}
           <Card.ImgOverlay>
             <section className={classes.auth}>
               <h3>ADMIN LOGIN</h3>

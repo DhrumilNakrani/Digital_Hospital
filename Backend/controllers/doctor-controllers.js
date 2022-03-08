@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const { validationResult } = require('express-validator');
 const Doctor = require("../models/doctor");
 
 exports.getDoctor = async (req, res, next) => {
@@ -21,7 +20,6 @@ exports.getDoctorDetail = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  // console.log(doctor);
   res.json({ doctor: doctor });
 };
 
@@ -51,7 +49,6 @@ exports.postLogin = (req, res, next) => {
                 doctorId: doctor._id,
                 token: token,
               });
-              // console.log(user);
             } else {
               res.status(401).json({
                 message: "Invalid credentials, could not log you in.",
@@ -155,10 +152,8 @@ exports.postDelete = (req, res, next) => {
 exports.getDoctorByName = (req, res, next) => {
   const firstName = req.params.firstname;
   console.log(firstName);
-  // {"name": {$in: [/.m./]}
-  Doctor.find({ firstName: { $regex: firstName ,'$options' : 'i' } }).then((doctor) => {
+  Doctor.find({ firstName: { $regex: firstName, '$options': 'i' } }).then((doctor) => {
     if (doctor) {
-      // console.log("Inside FirstName api");
       console.log(doctor);
       return res.status(201).json({ doctor: doctor });
     } else {
@@ -173,7 +168,7 @@ exports.getDoctorByName = (req, res, next) => {
 exports.updateInformation = async (req, res, next) => {
   const id = req.params.doctorId;
   console.log(id);
-  const { firstName, lastName, mobileNumber,address } = req.body;
+  const { firstName, lastName, mobileNumber, address } = req.body;
 
   Doctor.updateOne(
     { _id: id },
@@ -182,7 +177,7 @@ exports.updateInformation = async (req, res, next) => {
         firstName: firstName,
         lastName: lastName,
         mobileNumber: mobileNumber,
-        address:address
+        address: address
       },
     },
     { upsert: true }

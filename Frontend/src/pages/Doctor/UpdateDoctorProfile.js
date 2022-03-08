@@ -1,15 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
-import AuthContext from "../../store/auth-context";
 import DoctorImage from "../../components/images/DoctorVector.jpg";
 import DoctorMainNavigation from "./DoctorMainNavigation";
-import {Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import classes from "../../components/Auth/PatientForm.module.css";
 
 
 const UpdateDoctorProfile = () => {
-  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [doctor, setDoctor] = useState("");
@@ -64,7 +62,6 @@ const UpdateDoctorProfile = () => {
           address: responseData.doctor.address,
         };
         setDoctor(doctorDetail);
-        // console.log(responseData.message);
       } catch (err) {
         console.log("error");
       }
@@ -93,13 +90,9 @@ const UpdateDoctorProfile = () => {
 
       const responseData = await response.json();
       setIsLoading(false);
-    
+
       if (responseData.status === "201") {
-        // authCtx.login(responseData.token);
-        //window.sessionStorage.setItem("userId", responseData.userId);
-        // window.sessionStorage.setItem("patientId", responseData.patientId);
         history.replace("/doctor/detail");
-        // console.log("Doctor");
         console.log(responseData.message);
       } else {
         setIsExsistingUser(true);

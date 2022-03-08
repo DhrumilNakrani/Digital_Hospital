@@ -69,7 +69,6 @@
     opacity: 1;
   }
   
-  /* Highlight text in  */
   .header.highlightTextIn a {
     color: rgba(0, 0, 0, 0.4);
   }

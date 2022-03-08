@@ -69,7 +69,6 @@
     opacity: 1;
   }
   
-  /* Highlight text in  */
   .header.highlightTextIn a {
     color: rgba(0, 0, 0, 0.4);
   }
@@ -79,8 +78,13 @@
   }
   
   .active {
-    color: rgb(13, 230, 230);
+    color: rgb(0, 255, 255);
     padding-bottom: 0.25rem;
     border-bottom: 4px solid rgb(13, 230, 230);
     display: inline-block;
+  }
+
+  .patientborder
+  {
+    border-bottom: 4px solid rgb(13, 230, 31);
   }

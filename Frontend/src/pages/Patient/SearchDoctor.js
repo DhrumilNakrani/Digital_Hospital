@@ -33,7 +33,6 @@ const SearchDoctor = () => {
                 `http://localhost:5000/doctor/searchRecord/${search}`
             );
             const responseData = await response.json();
-            //   console.log(responseData.doctor);
             setRecord(responseData.doctor);
         } catch (err) {
             console.log(err);
@@ -43,9 +42,9 @@ const SearchDoctor = () => {
     return (
         <section>
             <PatientMainNavigation></PatientMainNavigation>
-            <div className="search-doctor" style={{minHeight:"91vh"}}>
+            <div className="search-doctor" style={{ minHeight: "91vh" }}>
                 <div className="container">
-                    <h3 className="mb-3 text-center mt-4 mx-5" style={{ borderBottom: "4px solid rgb(13, 230, 230)", display: "inline-block",color:"white"}}>Search Doctors</h3>
+                    <h3 className="mb-3 text-center mt-4 mx-5" style={{ borderBottom: "4px solid rgb(13, 230, 230)", display: "inline-block", color: "white" }}>Search Doctors</h3>
 
                     <div className="row mt-3">
                         <div className="col-sm-12">
@@ -56,7 +55,7 @@ const SearchDoctor = () => {
                                     onChange={(e) => setSearch(e.target.value)}
                                     className="form-control"
                                     placeholder="Search Doctors"
-                                    style={{ backgroundColor: "#ffffff",color:"black"}}
+                                    style={{ backgroundColor: "#ffffff", color: "black" }}
                                 />
                             </div>
                             <div className="col-sm-5 mt-3">
@@ -65,35 +64,35 @@ const SearchDoctor = () => {
                                 </NavLink>
                             </div>
                             <p>
-                            <div className="input-group mb-4 mt-5">
-                                {record.map((doctor) => (
-                                    <ul key={doctor.firstName}>
-                                        <Card sx={{ width: 398 }} className="bg-dark">
-                                            <CardActionArea>
-                                                <CardMedia
-                                                    component="img"
-                                                    height="140"
-                                                    src={DoctorImage}
-                                                    alt="green iguana"
-                                                />
-                                                <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div" style={{ borderBottom: "4px solid rgb(13, 230, 230)", display: "inline-block" ,color:"white"}}>
-                                                        {doctor.firstName} {doctor.lastName}
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        <ul className="list-group list-group-flush">
-                                                            <li className="list-group-item bg-dark" style={{color:"white"}}><label style={{color:"white"}}>Specialization : </label>{doctor.specialization}</li>
-                                                            <li className="list-group-item bg-dark" style={{color:"white"}}><label style={{color:"white"}}>Email :  </label>{doctor.email}</li>
-                                                            <li className="list-group-item bg-dark" style={{color:"white"}}><label style={{color:"white"}}>Contact Number :  </label>{doctor.mobileNumber}</li>
-                                                            <li className="list-group-item bg-dark" style={{color:"white"}}><label style={{color:"white"}}>Address :  </label>{doctor.address}</li>
-                                                        </ul>
-                                                    </Typography>
-                                                </CardContent>
-                                            </CardActionArea>
-                                        </Card>
-                                    </ul>
-                                ))}
-                            </div>
+                                <div className="input-group mb-4 mt-5">
+                                    {record.map((doctor) => (
+                                        <ul key={doctor.firstName}>
+                                            <Card sx={{ width: 398 }} className="bg-dark">
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="140"
+                                                        src={DoctorImage}
+                                                        alt="green iguana"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div" style={{ borderBottom: "4px solid rgb(13, 230, 230)", display: "inline-block", color: "white" }}>
+                                                            {doctor.firstName} {doctor.lastName}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            <ul className="list-group list-group-flush">
+                                                                <li className="list-group-item bg-dark" style={{ color: "white" }}><label style={{ color: "white" }}>Specialization : </label>{doctor.specialization}</li>
+                                                                <li className="list-group-item bg-dark" style={{ color: "white" }}><label style={{ color: "white" }}>Email :  </label>{doctor.email}</li>
+                                                                <li className="list-group-item bg-dark" style={{ color: "white" }}><label style={{ color: "white" }}>Contact Number :  </label>{doctor.mobileNumber}</li>
+                                                                <li className="list-group-item bg-dark" style={{ color: "white" }}><label style={{ color: "white" }}>Address :  </label>{doctor.address}</li>
+                                                            </ul>
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        </ul>
+                                    ))}
+                                </div>
                             </p>
                         </div>
                     </div>

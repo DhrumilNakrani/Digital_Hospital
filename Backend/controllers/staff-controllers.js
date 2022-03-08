@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const { validationResult } = require('express-validator');
 const Staff = require("../models/staff");
 
 exports.postLogin = (req, res, next) => {
@@ -29,7 +28,6 @@ exports.postLogin = (req, res, next) => {
                 staffId: staff.id,
                 token: token,
               });
-              // console.log(user);
             } else {
               res.status(401).json({
                 message: "Invalid credentials, could not log you in.",
@@ -103,7 +101,7 @@ exports.postSingup = (req, res, next) => {
 exports.postDelete = (req, res, next) => {
   const { id } = req.body;
 
-  Staff.findByIdAndDelete({ _id : id }).then((staffDoc) => {
+  Staff.findByIdAndDelete({ _id: id }).then((staffDoc) => {
     if (staffDoc) {
       return res.status(200).json({
         message: "Staff deleted",
@@ -120,8 +118,7 @@ exports.postDelete = (req, res, next) => {
 
 exports.updateInformation = async (req, res, next) => {
   const id = req.params.staffId;
-  // console.log(id);
-  const { firstName, lastName, mobileNumber ,address} = req.body;
+  const { firstName, lastName, mobileNumber, address } = req.body;
 
   Staff.updateOne(
     { _id: id },
@@ -130,13 +127,12 @@ exports.updateInformation = async (req, res, next) => {
         firstName: firstName,
         lastName: lastName,
         mobileNumber: mobileNumber,
-        address:address
+        address: address
       },
     },
     { upsert: true }
   )
     .then((staff) => {
-      // console.log(user);
       res.status(201).json({
         staffDetails: staff,
         message: "Data updated successfully",
@@ -156,7 +152,5 @@ exports.getStaff = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  // console.log(patient);
-  // console.log(patient.documents[0].patientDoc);
   res.json({ staff: staff });
 };

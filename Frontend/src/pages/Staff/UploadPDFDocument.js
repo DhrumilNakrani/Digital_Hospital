@@ -1,5 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
-import StaffMainNavigation from "./StaffMainNavigation";
+import { React, useState } from "react";
 import classes from "./UploadPDFDocument.module.css";
 import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
@@ -7,8 +6,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import axios from "axios";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import { Button, Nav, Navbar, Container, Card } from "react-bootstrap";
-//import DocumentImage from "../../components/images/documentImage.jpg";
+import { Button, Nav, Navbar, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -17,21 +15,14 @@ const UploadPDFDocument = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   const patientId = localStorage.getItem("patientId");
-  // console.log(patientId);
   const [pdfFile, setPdfFile] = useState(null);
   const [uploadFile, setUploadFile] = useState(null);
-  const [file, seeFile] = useState(null);
   const [pdfError, setPdfError] = useState("");
 
   const uploadHandler = async (event) => {
     event.preventDefault();
-    // console.log("Hellog");
-
-    // formData.append("patient", patientId);
-    // console.log(pdfFile);
-    // console.log( "http://localhost:5000/upload/document/"+patientId);
     const formData = new FormData();
-    formData.append("file", uploadFile); //image
+    formData.append("file", uploadFile);
     formData.append("patient", patientId);
     const config = {
       headers: {
@@ -56,7 +47,6 @@ const UploadPDFDocument = () => {
   const handleFile = (e) => {
     setUploadFile(e.target.files[0]);
     let selectedFile = e.target.files[0];
-    // console.log(selectedFile.type);
     if (selectedFile) {
       if (selectedFile) {
         let reader = new FileReader();
@@ -85,7 +75,7 @@ const UploadPDFDocument = () => {
             <Nav.Link
               as={NavLink}
               activeClassName={classes.active}
-              style={{fontSize: 16}}
+              style={{ fontSize: 16 }}
               to="/staff/upload-patient-document"
             >
               UPLOAD PATIENT DOCUMENT
@@ -93,7 +83,7 @@ const UploadPDFDocument = () => {
           </Nav>
         </Container>
       </Navbar>
-      <div style={{background:"linear-gradient(#181717e5 0%, #2162d1ad 100%)" ,display:"flex",minHeight:"673px"}}>
+      <div style={{ background: "linear-gradient(#181717e5 0%, #2162d1ad 100%)", display: "flex", minHeight: "673px" }}>
         <div className="container">
           <form className={classes.auth}>
             <label>

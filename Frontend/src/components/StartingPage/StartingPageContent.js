@@ -1,5 +1,3 @@
-// import Slider from '../UI/Slider';
-//import classes from "./StartingPageContent.module.css";
 import { Carousel } from "react-bootstrap";
 import React from "react";
 import Footer from "../../pages/Footer";
@@ -20,8 +18,10 @@ const StartingPageContent = () => {
             width={100}
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <p style={{color:"black"}}>
+              Starting a digital health company comes with an obligation to
+              positively impact the healthcare industry.
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={5000}>
@@ -33,9 +33,10 @@ const StartingPageContent = () => {
             width={100}
           />
           <Carousel.Caption>
-            Specialization
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>
+              We're seeing an interesting convergence of
+              technollogy,medicine,social issues,and human progress.
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={5000}>
@@ -47,9 +48,9 @@ const StartingPageContent = () => {
             width={100}
           />
           <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          <p>
+              Only digital health can bring healthcare into 21st century and
+              make patients the point of care
             </p>
           </Carousel.Caption>
         </Carousel.Item>

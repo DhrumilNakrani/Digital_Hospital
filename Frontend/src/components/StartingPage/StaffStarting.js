@@ -1,4 +1,3 @@
-// import Slider from '../UI/Slider';
 import React from "react";
 import classes from "./StaffStarting.module.css";
 

@@ -1,12 +1,11 @@
 import React from "react";
-//import classes from "./PatientContactUs.module.css";
 import PatientMainNavigation from "./PatientMainNavigation";
 import Footer from "../Footer";
 import { BsInstagram } from "react-icons/bs";
-import {FiTwitter} from "react-icons/fi";
-import {AiOutlineFacebook} from "react-icons/ai";
+import { FiTwitter } from "react-icons/fi";
+import { AiOutlineFacebook } from "react-icons/ai";
 const PatientContactUs = () => {
-    return(
+    return (
         <React.Fragment>
             <PatientMainNavigation></PatientMainNavigation>
             <div className="contact-body">
@@ -31,16 +30,16 @@ const PatientContactUs = () => {
                                         <span>CONTACT US</span>
                                     </div>
                                     <div className="app-contact">CONTACT INFO : +91 9328893561</div>
-                                    <div className="col-10" style={{color: 'white'}}>
-                                    <BsInstagram className="mx-2" size={20}></BsInstagram>
-                                    <FiTwitter className="mx-3" size={20}></FiTwitter>
-                                    <AiOutlineFacebook size={25}></AiOutlineFacebook>
+                                    <div className="col-10" style={{ color: 'white' }}>
+                                        <BsInstagram className="mx-2" size={20}></BsInstagram>
+                                        <FiTwitter className="mx-3" size={20}></FiTwitter>
+                                        <AiOutlineFacebook size={25}></AiOutlineFacebook>
                                     </div>
                                 </div>
                                 <div className="screen-body-item">
                                     <div className="app-form">
                                         <div className="app-form-group">
-                                            <input className="app-form-control" placeholder="NAME"/>
+                                            <input className="app-form-control" placeholder="NAME" />
                                         </div>
                                         <div className="app-form-group">
                                             <input className="app-form-control" placeholder="EMAIL" />

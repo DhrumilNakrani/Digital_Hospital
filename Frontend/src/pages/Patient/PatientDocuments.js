@@ -1,8 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Table } from 'react-bootstrap';
 import { GrDocumentPdf } from 'react-icons/gr';
 import PatientMainNavigation from "./PatientMainNavigation";
 const PatientDocuments = (props) => {
@@ -21,12 +19,7 @@ const PatientDocuments = (props) => {
         const patientDoc = {
           doc: responseData.patient.documents,
         };
-        // console.log(responseData.patient);
-        // const doc = responseData.patient.documents[0].patientDoc;
-        // console.log(patientDoc.doc);
         setDocuments(patientDoc.doc);
-
-        // console.log();
       } catch (err) {
         console.log("error");
       }
@@ -44,25 +37,18 @@ const PatientDocuments = (props) => {
     })
       .then((res) => res.blob())
       .then((response) => {
-        //Create a Blob from the PDF Stream
         console.log("Helloo");
         console.log(response);
         const file = new Blob([response], {
           type: "application/pdf",
         });
-        //Build a URL from the file
         const fileURL = URL.createObjectURL(file);
-        //Open the URL on new Window
         window.open(fileURL);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  //   console.log(patientId);
-  //   const url = `documents/${patientId}`;
-  //   console.log(url);
   return (
     <React.Fragment>
       <PatientMainNavigation></PatientMainNavigation>

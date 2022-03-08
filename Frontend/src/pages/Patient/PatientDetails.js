@@ -23,7 +23,6 @@ const PatientDetails = () => {
           lastName: responseData.patient.lastName,
           email: responseData.patient.email,
           mobileNumber: responseData.patient.mobileNumber,
-          // doc:responseData.patient.documents,
         };
         setPatient(patientDetail);
       } catch (err) {
@@ -167,24 +166,6 @@ const PatientDetails = () => {
                         Contact information
                       </h6>
                       <div className="pl-lg-4">
-                        <div className="row">
-                          <div className="col-md-12">
-                            <div className="form-group focused">
-                              <label
-                                className="form-control-label"
-                                htmlFor="input-address"
-                              >
-                                Address
-                              </label>
-                              <ListGroupItem
-                                className="form-control form-control-alternative"
-                                style={{ fontFamily: "verdana" }}
-                              >
-                                {patient.firstName}
-                              </ListGroupItem>
-                            </div>
-                          </div>
-                        </div>
                         <div className="row">
                           <div className="col-lg-4">
                             <div className="form-group focused">

@@ -4,14 +4,12 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
-
-//var busboy = require("connect-busboy");
 const fileUpload = require("./middleware/file-upload");
 const userRoutes = require("./routes/patient");
 const doctorRoutes = require("./routes/doctor");
 const staffRoutes = require("./routes/staff");
 const adminRoutes = require("./routes/admin");
-// const userUpload = require("./routes/index");
+require("dotenv").config();
 const app = express();
 
 // const express = require("express");

@@ -4,22 +4,14 @@ import { NavLink, useHistory } from "react-router-dom";
 import classes from "./PatientMainNavigation.module.css";
 import AuthContext from "../../store/auth-context";
 import Button from "react-bootstrap/Button";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Navbar,
   Nav,
-  NavDropdown,
-  Form,
-  FormControl,
   Container,
 } from "react-bootstrap";
 const style1 = {
   color: "white",
   fontSize: 16,
-};
-const style2 = {
-  color: "pink",
-  fontSize: 20,
 };
 const PatientMainNavigation = () => {
   const history = useHistory();
@@ -35,7 +27,7 @@ const PatientMainNavigation = () => {
     <React.Fragment>
       <Navbar bg="p-3 bg-dark text-white" sticky="top" variant="light">
         <Container>
-          <Navbar.Brand as={NavLink} to="/patient/home" style={style1}>
+          <Navbar.Brand as={NavLink} to="/patient/home" style={style1} activeClassName={classes.patientborder}>
             Welcome Patient
           </Navbar.Brand>
           <Nav className="ms-auto">
@@ -62,6 +54,14 @@ const PatientMainNavigation = () => {
               style={style1}
             >
               UPDATE PROFILE
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              activeClassName={classes.active}
+              to="/payment"
+              style={style1}
+            >
+              PAY NOW
             </Nav.Link>
             <Nav.Link
               as={NavLink}

@@ -3,9 +3,8 @@ import { useHistory } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import AuthContext from "../../store/auth-context";
 import PatientImage from "../images/PatientVector.jpg"; 
-//import classes from "./AdminForm.module.css";
 import classes from "./PatientForm.module.css";
-import { Form, Group, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 const PatientForm = () => {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -231,7 +230,6 @@ const PatientForm = () => {
           enteredPassword === enteredConfirmPassword
         ) {
           authCtx.login(responseData.token);
-          //window.sessionStorage.setItem("userId", responseData.userId);
           window.sessionStorage.setItem("patientId", responseData.patientId);
           history.replace("/patient/detail");
           console.log(responseData.message);
@@ -265,7 +263,7 @@ const PatientForm = () => {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.imagebox}>
-        <img src={PatientImage} className="img-fluid" alt="Phone image" style={{width:"600px"}}/>
+        <img src={PatientImage} className="img-fluid" alt="Patient image" style={{width:"600px"}}/>
       </div>
       <div className={classes.loginbox}>
       <Card.ImgOverlay>
