@@ -54,7 +54,7 @@ const SearchDoctor = () => {
                                     id="form1"
                                     onChange={(e) => setSearch(e.target.value)}
                                     className="form-control"
-                                    placeholder="Search Doctors"
+                                    placeholder="Search Doctors based on (FirstName,LastName,Specialization)"
                                     style={{ backgroundColor: "#ffffff", color: "black" }}
                                 />
                             </div>

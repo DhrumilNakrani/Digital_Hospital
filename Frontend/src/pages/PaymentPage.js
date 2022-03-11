@@ -4,7 +4,7 @@ import classes from "./PaymentPage.module.css";
 import { Card } from "react-bootstrap";
 import PaymentImage from '../components/images/vectorPayment.png';
 const PaymentPage = () => {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(500);
   const [patient, setPatient] = useState("");
   const patientId = window.sessionStorage.getItem("patientId");
 

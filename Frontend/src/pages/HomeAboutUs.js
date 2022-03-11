@@ -15,7 +15,7 @@ const HomeAboutUs = () => {
             <div className="content">
               <div className="article">
                 <h4 style={{ color: "white", fontFamily: "times-new-roman" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia luctus ullamcorper. Mauris tincidunt ex sit amet leo eleifend, in venenatis elit efficitur. Ut at mi sit amet nunc ultrices mattis vel sed mi. Donec fermentum vulputate tellus imperdiet fringilla. Nam ac ligula tincidunt, egestas odio vel, vulputate dolor. Donec non nibh mollis, tincidunt ligula non, pulvinar ipsum. Nullam tempus dolor tellus, id consectetur nunc vulputate in. Donec venenatis, magna at eleifend eleifend, turpis libero malesuada dui, sed semper diam justo vitae ante. Phasellus euismod justo tortor, a tempus nunc faucibus imperdiet.
+                  Digital Hospital is a concept contributing to enhancing personnel productivity, facilitating hospital operations, improving the process quality and ensuring patient safety by integrating cutting-edge technologies such as medical devices, smart information systems, facility control and automatic conveyor systems, location-based services, sensors and digital communication tools into health processes.
                 </h4>
               </div>
             </div>
@@ -37,9 +37,9 @@ const HomeAboutUs = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-12 col-sm-2 col-lg-3">
+            <div className="col-12 col-sm-2 col-lg-3" style={{ marginRight: "165px" }}>
               <div className="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s">
-                <div className="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                <div className="advisor_thumb"><img src="" alt="" />
                   <div className="social-info"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-linkedin"></i></a></div>
                 </div>
                 <div className="single_advisor_details_info">
@@ -48,9 +48,9 @@ const HomeAboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-sm-2 col-lg-3">
+            <div className="col-12 col-sm-2 col-lg-3" style={{ marginRight: "160px" }}>
               <div className="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s">
-                <div className="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" />
+                <div className="advisor_thumb"><img src="" alt="" />
                   <div className="social-info"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-linkedin"></i></a></div>
                 </div>
                 <div className="single_advisor_details_info">
@@ -59,20 +59,9 @@ const HomeAboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-sm-2 col-lg-3">
-              <div className="single_advisor_profile wow fadeInUp" data-wow-delay="0.4s">
-                <div className="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" />
-                  <div className="social-info"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-linkedin"></i></a></div>
-                </div>
-                <div className="single_advisor_details_info">
-                  <h6>Riyadh Khan</h6>
-                  <p className="designation">Developer</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-2 col-lg-3">
+            <div className="col-12 col-sm-2 col-lg-3" style={{ marginRight: "0px" }}>
               <div className="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s">
-                <div className="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" />
+                <div className="advisor_thumb"><img src="" alt="" />
                   <div className="social-info"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"><i className="fa fa-twitter"></i></a><a href="#"><i className="fa fa-linkedin"></i></a></div>
                 </div>
                 <div className="single_advisor_details_info">

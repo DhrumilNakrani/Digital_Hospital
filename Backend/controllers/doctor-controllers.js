@@ -151,8 +151,9 @@ exports.postDelete = (req, res, next) => {
 
 exports.getDoctorByName = (req, res, next) => {
   const firstName = req.params.firstname;
+  // const lastName = req.params.firstName;
   console.log(firstName);
-  Doctor.find({ firstName: { $regex: firstName, '$options': 'i' } }).then((doctor) => {
+  Doctor.find({ '$or':[{firstName: { $regex: firstName, '$options': 'i' }},{lastName: { $regex: firstName, '$options': 'i' }},{specialization: { $regex: firstName, '$options': 'i' }}]  }).then((doctor) => {
     if (doctor) {
       console.log(doctor);
       return res.status(201).json({ doctor: doctor });
